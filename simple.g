@@ -12,7 +12,7 @@ PLUS	:	'+';
 MINUS	:	'-';
 
 /* Boolean operators, in order of precedence. */
-NOT     :	'not';
+NOT	 :	'not';
 AND	:	'&';
 OR	:	'|';
 RELOP	:	('=' | '<' | '<=' | '>' | '>=');
@@ -27,7 +27,7 @@ SKIP	:	'skip';
 /* Do while. */
 WHILE	:	'while';
 DO	:	'do';
-ENDWHILE:	'od';
+ENDWHILE	:	'od';
 
 /* Misc. */
 GETS	:	':=';
@@ -35,6 +35,7 @@ SEMI	:	';';
 LPAREN	:	'(';
 RPAREN	:	')';
 BLOCK	:	'block';
+UNARY	:	'unary';
 
 /* Atoms. */
 BOOLEAN	:	('true' | 'false');
@@ -50,9 +51,9 @@ program
  	;
 
 block
-    :	statement+
-        -> ^(BLOCK statement+)
-    ;
+	:	statement+
+		-> ^(BLOCK statement+)
+	;
 
 /* Arithmetic expressions - craziness due to precendence! */
 arith_expr
@@ -65,7 +66,14 @@ add_expr
 	:	sub_expr (PLUS^ sub_expr)*
 	;
 sub_expr 
-	:	arith_atom (MINUS^ arith_atom)*
+	:	unary_expr (MINUS^ unary_expr)*
+	;
+unary_expr
+	:	MINUS arith_atom
+		-> ^(UNARY MINUS arith_atom)
+	|	PLUS arith_atom
+		-> ^(UNARY PLUS arith_atom)
+	|	arith_atom
 	;
 arith_atom
 	:	(IDENT | INTEGER)

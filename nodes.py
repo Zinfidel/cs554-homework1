@@ -58,6 +58,15 @@ class IdentifierNode(EmitNode):
         return self.getText()
 
 
+class UnaryNode(EmitNode):
+    def __str__(self):
+        return "".join(self.children)
+
+    def emit(self):
+        # TODO: Negate value here
+        return None
+
+
 class BooleanNode(EmitNode):
     def __str__(self):
         return self.text
@@ -200,6 +209,8 @@ class LlvmAdaptor(antlr3.tree.CommonTreeAdaptor):
             return IntegerNode(payload)
         elif t == IDENT:
             return IdentifierNode(payload)
+        elif t == UNARY:
+            return UnaryNode(payload)
         elif t in (MULT, PLUS, MINUS):
             return ArithmeticNode(payload)
         elif t == RELOP:

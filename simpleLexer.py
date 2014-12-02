@@ -1,4 +1,4 @@
-# $ANTLR 3.1.3 Mar 18, 2009 10:09:25 simple.g 2014-11-29 20:23:06
+# $ANTLR 3.1.3 Mar 18, 2009 10:09:25 simple.g 2014-12-01 20:42:59
 
 import sys
 from antlr3 import *
@@ -9,31 +9,32 @@ from antlr3.compat import set, frozenset
 HIDDEN = BaseRecognizer.HIDDEN
 
 # token types
-INTEGER=26
-WHILE=16
-ELSE=13
+SEMI=20
 DO=17
-NOT=7
 MINUS=6
 MULT=4
-AND=8
-EOF=-1
-SEMI=20
-LPAREN=21
-IF=11
+ELSE=13
 SKIP=15
-RPAREN=22
-WS=27
-BOOLEAN=24
-THEN=12
-BLOCK=23
+WS=28
+EOF=-1
+IF=11
+UNARY=24
+INTEGER=27
 OR=9
 ENDIF=14
-IDENT=25
-PLUS=5
-GETS=19
+LPAREN=21
+BLOCK=23
+RPAREN=22
+BOOLEAN=25
+NOT=7
+IDENT=26
+AND=8
+THEN=12
+WHILE=16
 ENDWHILE=18
+GETS=19
 RELOP=10
+PLUS=5
 
 
 class simpleLexer(Lexer):
@@ -146,8 +147,8 @@ class simpleLexer(Lexer):
             _type = NOT
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:15:9: ( 'not' )
-            # simple.g:15:11: 'not'
+            # simple.g:15:6: ( 'not' )
+            # simple.g:15:8: 'not'
             pass 
             self.match("not")
 
@@ -475,8 +476,8 @@ class simpleLexer(Lexer):
             _type = ENDWHILE
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:30:9: ( 'od' )
-            # simple.g:30:11: 'od'
+            # simple.g:30:10: ( 'od' )
+            # simple.g:30:12: 'od'
             pass 
             self.match("od")
 
@@ -618,6 +619,31 @@ class simpleLexer(Lexer):
 
 
 
+    # $ANTLR start "UNARY"
+    def mUNARY(self, ):
+
+        try:
+            _type = UNARY
+            _channel = DEFAULT_CHANNEL
+
+            # simple.g:38:7: ( 'unary' )
+            # simple.g:38:9: 'unary'
+            pass 
+            self.match("unary")
+
+
+
+            self._state.type = _type
+            self._state.channel = _channel
+
+        finally:
+
+            pass
+
+    # $ANTLR end "UNARY"
+
+
+
     # $ANTLR start "BOOLEAN"
     def mBOOLEAN(self, ):
 
@@ -625,10 +651,10 @@ class simpleLexer(Lexer):
             _type = BOOLEAN
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:40:9: ( ( 'true' | 'false' ) )
-            # simple.g:40:11: ( 'true' | 'false' )
+            # simple.g:41:9: ( ( 'true' | 'false' ) )
+            # simple.g:41:11: ( 'true' | 'false' )
             pass 
-            # simple.g:40:11: ( 'true' | 'false' )
+            # simple.g:41:11: ( 'true' | 'false' )
             alt2 = 2
             LA2_0 = self.input.LA(1)
 
@@ -642,13 +668,13 @@ class simpleLexer(Lexer):
                 raise nvae
 
             if alt2 == 1:
-                # simple.g:40:12: 'true'
+                # simple.g:41:12: 'true'
                 pass 
                 self.match("true")
 
 
             elif alt2 == 2:
-                # simple.g:40:21: 'false'
+                # simple.g:41:21: 'false'
                 pass 
                 self.match("false")
 
@@ -675,8 +701,8 @@ class simpleLexer(Lexer):
             _type = IDENT
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:41:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
-            # simple.g:41:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+            # simple.g:42:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
+            # simple.g:42:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
             pass 
             if (65 <= self.input.LA(1) <= 90) or (97 <= self.input.LA(1) <= 122):
                 self.input.consume()
@@ -685,7 +711,7 @@ class simpleLexer(Lexer):
                 self.recover(mse)
                 raise mse
 
-            # simple.g:41:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+            # simple.g:42:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
             while True: #loop3
                 alt3 = 2
                 LA3_0 = self.input.LA(1)
@@ -729,10 +755,10 @@ class simpleLexer(Lexer):
             _type = INTEGER
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:42:9: ( ( '0' .. '9' )+ )
-            # simple.g:42:11: ( '0' .. '9' )+
+            # simple.g:43:9: ( ( '0' .. '9' )+ )
+            # simple.g:43:11: ( '0' .. '9' )+
             pass 
-            # simple.g:42:11: ( '0' .. '9' )+
+            # simple.g:43:11: ( '0' .. '9' )+
             cnt4 = 0
             while True: #loop4
                 alt4 = 2
@@ -743,7 +769,7 @@ class simpleLexer(Lexer):
 
 
                 if alt4 == 1:
-                    # simple.g:42:12: '0' .. '9'
+                    # simple.g:43:12: '0' .. '9'
                     pass 
                     self.matchRange(48, 57)
 
@@ -777,10 +803,10 @@ class simpleLexer(Lexer):
             _type = WS
             _channel = DEFAULT_CHANNEL
 
-            # simple.g:45:4: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
-            # simple.g:45:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            # simple.g:46:4: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
+            # simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             pass 
-            # simple.g:45:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            # simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             cnt5 = 0
             while True: #loop5
                 alt5 = 2
@@ -828,8 +854,8 @@ class simpleLexer(Lexer):
 
 
     def mTokens(self):
-        # simple.g:1:8: ( MULT | PLUS | MINUS | NOT | AND | OR | RELOP | IF | THEN | ELSE | ENDIF | SKIP | WHILE | DO | ENDWHILE | GETS | SEMI | LPAREN | RPAREN | BLOCK | BOOLEAN | IDENT | INTEGER | WS )
-        alt6 = 24
+        # simple.g:1:8: ( MULT | PLUS | MINUS | NOT | AND | OR | RELOP | IF | THEN | ELSE | ENDIF | SKIP | WHILE | DO | ENDWHILE | GETS | SEMI | LPAREN | RPAREN | BLOCK | UNARY | BOOLEAN | IDENT | INTEGER | WS )
+        alt6 = 25
         alt6 = self.dfa6.predict(self.input)
         if alt6 == 1:
             # simple.g:1:10: MULT
@@ -952,25 +978,31 @@ class simpleLexer(Lexer):
 
 
         elif alt6 == 21:
-            # simple.g:1:115: BOOLEAN
+            # simple.g:1:115: UNARY
+            pass 
+            self.mUNARY()
+
+
+        elif alt6 == 22:
+            # simple.g:1:121: BOOLEAN
             pass 
             self.mBOOLEAN()
 
 
-        elif alt6 == 22:
-            # simple.g:1:123: IDENT
+        elif alt6 == 23:
+            # simple.g:1:129: IDENT
             pass 
             self.mIDENT()
 
 
-        elif alt6 == 23:
-            # simple.g:1:129: INTEGER
+        elif alt6 == 24:
+            # simple.g:1:135: INTEGER
             pass 
             self.mINTEGER()
 
 
-        elif alt6 == 24:
-            # simple.g:1:137: WS
+        elif alt6 == 25:
+            # simple.g:1:143: WS
             pass 
             self.mWS()
 
@@ -983,111 +1015,118 @@ class simpleLexer(Lexer):
     # lookup tables for DFA #6
 
     DFA6_eot = DFA.unpack(
-        u"\4\uffff\1\25\3\uffff\10\25\4\uffff\1\25\3\uffff\1\25\1\45\3\25"
-        u"\1\51\3\25\1\55\1\56\1\25\1\60\1\uffff\3\25\1\uffff\3\25\2\uffff"
-        u"\1\25\1\uffff\1\70\1\71\1\72\1\25\1\74\2\25\3\uffff\1\71\1\uffff"
-        u"\1\77\1\100\2\uffff"
+        u"\4\uffff\1\26\3\uffff\10\26\4\uffff\2\26\3\uffff\1\26\1\47\3\26"
+        u"\1\53\3\26\1\57\1\60\2\26\1\63\1\uffff\3\26\1\uffff\3\26\2\uffff"
+        u"\2\26\1\uffff\1\74\1\75\1\76\1\26\1\100\3\26\3\uffff\1\75\1\uffff"
+        u"\1\104\1\105\1\106\3\uffff"
         )
 
     DFA6_eof = DFA.unpack(
-        u"\101\uffff"
+        u"\107\uffff"
         )
 
     DFA6_min = DFA.unpack(
         u"\1\11\3\uffff\1\157\3\uffff\1\146\1\150\1\154\1\141\1\153\1\150"
-        u"\1\157\1\144\4\uffff\1\154\3\uffff\1\164\1\60\1\145\1\165\1\163"
-        u"\1\60\1\154\2\151\2\60\1\157\1\60\1\uffff\1\156\2\145\1\uffff\1"
-        u"\163\1\160\1\154\2\uffff\1\143\1\uffff\3\60\1\145\1\60\1\145\1"
-        u"\153\3\uffff\1\60\1\uffff\2\60\2\uffff"
+        u"\1\157\1\144\4\uffff\1\154\1\156\3\uffff\1\164\1\60\1\145\1\165"
+        u"\1\163\1\60\1\154\2\151\2\60\1\157\1\141\1\60\1\uffff\1\156\2\145"
+        u"\1\uffff\1\163\1\160\1\154\2\uffff\1\143\1\162\1\uffff\3\60\1\145"
+        u"\1\60\1\145\1\153\1\171\3\uffff\1\60\1\uffff\3\60\3\uffff"
         )
 
     DFA6_max = DFA.unpack(
         u"\1\174\3\uffff\1\157\3\uffff\1\146\1\162\1\154\1\151\1\153\1\150"
-        u"\1\157\1\144\4\uffff\1\154\3\uffff\1\164\1\172\1\145\1\165\1\163"
-        u"\1\172\1\154\2\151\2\172\1\157\1\172\1\uffff\1\156\2\145\1\uffff"
-        u"\1\163\1\160\1\154\2\uffff\1\143\1\uffff\3\172\1\145\1\172\1\145"
-        u"\1\153\3\uffff\1\172\1\uffff\2\172\2\uffff"
+        u"\1\157\1\144\4\uffff\1\154\1\156\3\uffff\1\164\1\172\1\145\1\165"
+        u"\1\163\1\172\1\154\2\151\2\172\1\157\1\141\1\172\1\uffff\1\156"
+        u"\2\145\1\uffff\1\163\1\160\1\154\2\uffff\1\143\1\162\1\uffff\3"
+        u"\172\1\145\1\172\1\145\1\153\1\171\3\uffff\1\172\1\uffff\3\172"
+        u"\3\uffff"
         )
 
     DFA6_accept = DFA.unpack(
-        u"\1\uffff\1\1\1\2\1\3\1\uffff\1\5\1\6\1\7\10\uffff\1\20\1\21\1"
-        u"\22\1\23\1\uffff\1\26\1\27\1\30\15\uffff\1\10\3\uffff\1\13\3\uffff"
-        u"\1\16\1\17\1\uffff\1\4\7\uffff\1\11\1\25\1\12\1\uffff\1\14\2\uffff"
-        u"\1\15\1\24"
+        u"\1\uffff\1\1\1\2\1\3\1\uffff\1\5\1\6\1\7\10\uffff\1\20\1\21\1\22"
+        u"\1\23\2\uffff\1\27\1\30\1\31\16\uffff\1\10\3\uffff\1\13\3\uffff"
+        u"\1\16\1\17\2\uffff\1\4\10\uffff\1\11\1\26\1\12\1\uffff\1\14\3\uffff"
+        u"\1\15\1\24\1\25"
         )
 
     DFA6_special = DFA.unpack(
-        u"\101\uffff"
+        u"\107\uffff"
         )
 
             
     DFA6_transition = [
-        DFA.unpack(u"\2\27\1\uffff\2\27\22\uffff\1\27\5\uffff\1\5\1\uffff"
-        u"\1\22\1\23\1\1\1\2\1\uffff\1\3\2\uffff\12\26\1\20\1\21\3\7\2\uffff"
-        u"\32\25\6\uffff\1\25\1\24\1\25\1\16\1\12\1\13\2\25\1\10\4\25\1\4"
-        u"\1\17\3\25\1\14\1\11\2\25\1\15\3\25\1\uffff\1\6"),
-        DFA.unpack(u""),
-        DFA.unpack(u""),
-        DFA.unpack(u""),
-        DFA.unpack(u"\1\30"),
+        DFA.unpack(u"\2\30\1\uffff\2\30\22\uffff\1\30\5\uffff\1\5\1\uffff"
+        u"\1\22\1\23\1\1\1\2\1\uffff\1\3\2\uffff\12\27\1\20\1\21\3\7\2\uffff"
+        u"\32\26\6\uffff\1\26\1\24\1\26\1\16\1\12\1\13\2\26\1\10\4\26\1\4"
+        u"\1\17\3\26\1\14\1\11\1\25\1\26\1\15\3\26\1\uffff\1\6"),
         DFA.unpack(u""),
         DFA.unpack(u""),
         DFA.unpack(u""),
         DFA.unpack(u"\1\31"),
-        DFA.unpack(u"\1\32\11\uffff\1\33"),
-        DFA.unpack(u"\1\34"),
-        DFA.unpack(u"\1\36\7\uffff\1\35"),
-        DFA.unpack(u"\1\37"),
+        DFA.unpack(u""),
+        DFA.unpack(u""),
+        DFA.unpack(u""),
+        DFA.unpack(u"\1\32"),
+        DFA.unpack(u"\1\33\11\uffff\1\34"),
+        DFA.unpack(u"\1\35"),
+        DFA.unpack(u"\1\37\7\uffff\1\36"),
         DFA.unpack(u"\1\40"),
         DFA.unpack(u"\1\41"),
         DFA.unpack(u"\1\42"),
-        DFA.unpack(u""),
-        DFA.unpack(u""),
-        DFA.unpack(u""),
-        DFA.unpack(u""),
         DFA.unpack(u"\1\43"),
         DFA.unpack(u""),
         DFA.unpack(u""),
         DFA.unpack(u""),
-        DFA.unpack(u"\1\44"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\1\46"),
-        DFA.unpack(u"\1\47"),
-        DFA.unpack(u"\1\50"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\1\52"),
-        DFA.unpack(u"\1\53"),
-        DFA.unpack(u"\1\54"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\1\57"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
         DFA.unpack(u""),
+        DFA.unpack(u"\1\44"),
+        DFA.unpack(u"\1\45"),
+        DFA.unpack(u""),
+        DFA.unpack(u""),
+        DFA.unpack(u""),
+        DFA.unpack(u"\1\46"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\1\50"),
+        DFA.unpack(u"\1\51"),
+        DFA.unpack(u"\1\52"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\1\54"),
+        DFA.unpack(u"\1\55"),
+        DFA.unpack(u"\1\56"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
         DFA.unpack(u"\1\61"),
         DFA.unpack(u"\1\62"),
-        DFA.unpack(u"\1\63"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
         DFA.unpack(u""),
         DFA.unpack(u"\1\64"),
         DFA.unpack(u"\1\65"),
         DFA.unpack(u"\1\66"),
         DFA.unpack(u""),
-        DFA.unpack(u""),
         DFA.unpack(u"\1\67"),
+        DFA.unpack(u"\1\70"),
+        DFA.unpack(u"\1\71"),
         DFA.unpack(u""),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
+        DFA.unpack(u""),
+        DFA.unpack(u"\1\72"),
         DFA.unpack(u"\1\73"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\1\75"),
-        DFA.unpack(u"\1\76"),
+        DFA.unpack(u""),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\1\77"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\1\101"),
+        DFA.unpack(u"\1\102"),
+        DFA.unpack(u"\1\103"),
         DFA.unpack(u""),
         DFA.unpack(u""),
         DFA.unpack(u""),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
         DFA.unpack(u""),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
-        DFA.unpack(u"\12\25\7\uffff\32\25\6\uffff\32\25"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u"\12\26\7\uffff\32\26\6\uffff\32\26"),
+        DFA.unpack(u""),
         DFA.unpack(u""),
         DFA.unpack(u"")
     ]
