@@ -21,4 +21,4 @@ llvmAdaptor = LlvmAdaptor()
 parser.setTreeAdaptor(llvmAdaptor)
 ast = parser.program().tree
 
-ast.emit()
+print ast.emit()
