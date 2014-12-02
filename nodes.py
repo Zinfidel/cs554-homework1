@@ -4,7 +4,7 @@
 
 import antlr3
 import antlr3.tree
-from llvm.core import Module, Constant, Type, Function, Builder, FCMP_ULT
+from llvm.core import Module, Constant, Type, Value, Function, Builder, FCMP_ULT
 
 from simpleLexer import *
 
@@ -21,15 +21,47 @@ class EmitNode(antlr3.tree.CommonTree):
     def emit(self):
         print "TYPE " + str(self.type) + " UNIMPLEMENTED"
 
+    def getScope(self):
+        """
+        This will return the nearest BLOCK's scope. This is useful for updating
+        a blocks scope from assignments.
+        :rtype: dict[str, Value]
+        """
+        return self.parent.getScope()
+
+    def getClosure(self):
+        """
+        Only Block nodes have variable scopes. Default behavior is to just ask
+        for the parents closure. The root of the AST will always be a BLOCK, so
+        it should always return from there.
+        :rtype: dict[str, Value]
+        """
+        return self.parent.getClosure()
+
 
 class BlockNode(EmitNode):
+    def __init__(self, payload):
+        super(BlockNode, self).__init__(payload)
+
+        self.scope = {}
+        """ The local scope for this block. """
+
+        self.closure = list(self.parent.getClosure()).append(self.scope)
+        """ :type : list[dict] """
+
     def __str__(self):
         return '\n'.join([str(node) for node in self.children])
 
     def emit(self):
         for child in self.children:
             child.emit()
-        # NOTE: Blocks do not have a return value!
+            # NOTE: Blocks do not have a return value!
+
+    def getScope(self):
+        return self.scope
+
+    def getClosure(self):
+        return self.closure
 
 
 class SkipNode(EmitNode):
@@ -55,7 +87,11 @@ class IdentifierNode(EmitNode):
         return self.text
 
     def emit(self):
-        return self.getText()
+        c = self.getClosure()
+        if self.text in c:
+            return c[self.text]
+        else:
+            raise RuntimeError("Unknown variable name: " + self.text)
 
 
 class UnaryNode(EmitNode):
@@ -153,7 +189,8 @@ class IfElseThenNode(EmitNode):
         else_branch = children[2]
 
         # Convert conditional to a boolean.
-        conditional_bool = "conditional_bool = [" + str(conditional) + " == 0.0]"
+        conditional_bool = "conditional_bool = [" + str(
+            conditional) + " == 0.0]"
         temp = '\n'.join([temp, conditional_bool])
 
         # Create blocks for the if/then cases.
