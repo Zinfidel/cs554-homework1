@@ -71,7 +71,7 @@ class SkipNode(EmitNode):
     def emit(self):
         # Emit useless instruction as a no-op.
         zero = Constant.int(tp_int, 0)
-        return g_llvm_builder.add(zero, zero, 'addtmp')
+        return g_llvm_builder.add(zero, zero, "addtmp")
 
 
 class IntegerNode(EmitNode):
@@ -99,8 +99,8 @@ class UnaryNode(EmitNode):
         return "".join(self.children)
 
     def emit(self):
-        # TODO: Negate value here
-        return None
+        expr = self.children[0].emit()
+        return g_llvm_builder.neg(expr.name, "negated_" + expr.name)
 
 
 class BooleanNode(EmitNode):
@@ -138,26 +138,31 @@ class BinaryBoolOpNode(EmitNode):
 
 class AssignmentNode(EmitNode):
     def emit(self):
-        children = self.getChildren()
-        left = children[0].emit()
-        right = children[1].emit()
-        return left + " := " + right
+        # Check for the name in the current scope closure. If it does not exist,
+        # add it. If it does exist TODO
+        closure = self.getScope()
+        name = self.children[0]
+
+
+        right = self.children[1].emit()
+
+
+        return
 
 
 class ArithmeticNode(EmitNode):
     def emit(self):
-        children = self.getChildren()
-        left = children[0].emit()
-        right = children[1].emit()
+        left = self.children[0].emit()
+        right = self.children[1].emit()
 
         if self.getText() == '*':
-            return left + ' * ' + right
+            return g_llvm_builder.mul(left, right, 'multmp')
         elif self.getText() == '+':
-            return left + ' + ' + right
+            return g_llvm_builder.add(left, right, 'addtmp')
         elif self.getText() == '-':
-            return left + ' - ' + right
+            return g_llvm_builder.sub(left, right, 'subtmp')
         else:
-            raise Exception("Unrecognized arithmetic operator.")
+            raise RuntimeError("Unrecognized arithmetic operator.")
 
 
 class RelationalNode(EmitNode):
