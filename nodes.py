@@ -1,47 +1,67 @@
 #!/usr/bin/env python
 
+""" Various custom AST node types that contain LLVM code generation methods. """
+
 import antlr3
 import antlr3.tree
+from llvm.core import Module, Constant, Type, Function, Builder, FCMP_ULT
+
 from simpleLexer import *
 
-
-""" Various custom AST node types that contain LLVM code generation methods.
-"""
+# GLOBALS (directly from tutorials)
+g_llvm_module = Module.new('simple')  # Holds all of the IR code.
+g_llvm_builder = None  # Builder created any time a function is entered.
+tp_int = Type.int()
 
 
 class EmitNode(antlr3.tree.CommonTree):
     def __str__(self):
-        return self.emit()
+        return str(self.emit())
 
     def emit(self):
         print "TYPE " + str(self.type) + " UNIMPLEMENTED"
-        # for child in self.getChildren():
-        #     print child.emit()
 
 
 class BlockNode(EmitNode):
+    def __str__(self):
+        return '\n'.join([str(node) for node in self.children])
+
     def emit(self):
-        # for child in self.getChildren():
-        #     print child.emit()
-        return '\n'.join([str(node) for node in self.getChildren()])
+        for child in self.children:
+            child.emit()
+        # NOTE: Blocks do not have a return value!
 
 
 class SkipNode(EmitNode):
-    def emit(self):
+    def __str__(self):
         return "SKIP"
+
+    def emit(self):
+        # Emit useless instruction as a no-op.
+        zero = Constant.int(tp_int, 0)
+        return g_llvm_builder.add(zero, zero, 'addtmp')
 
 
 class IntegerNode(EmitNode):
+    def __str__(self):
+        return self.text
+
     def emit(self):
-        return self.getText()
+        return Constant.int(tp_int, self.text)
 
 
 class IdentifierNode(EmitNode):
+    def __str__(self):
+        return self.text
+
     def emit(self):
         return self.getText()
 
 
 class BooleanNode(EmitNode):
+    def __str__(self):
+        return self.text
+
     def emit(self):
         if self.getText().lower() == "true":
             return "True"
