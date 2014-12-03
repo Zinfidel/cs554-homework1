@@ -145,7 +145,7 @@ class BooleanNode(EmitNode):
 
 class UnaryBoolOpNode(EmitNode):
     def emit(self):
-        b = self.children[0]
+        b = self.children[0].emit()
         return g_llvm_builder.not_(b, "notbool")
 
 
@@ -220,12 +220,6 @@ class IfElseThenNode(EmitNode):
         then_branch = self.children[1]
         else_branch = self.children[2]
 
-        # Convert conditional to a boolean.
-        conditional_bool = g_llvm_builder.icmp(ICMPEnum.ICMP_NE,
-                                               conditional,
-                                               Constant.int(tp_bool, 0),
-                                               "cond_bool")
-
         # Create blocks for the if/then cases.
         function = g_llvm_builder.basic_block.function
         then_block = function.append_basic_block('then')
@@ -233,7 +227,7 @@ class IfElseThenNode(EmitNode):
         continue_block = function.append_basic_block('continue')
 
         # Emit conditional instruction.
-        g_llvm_builder.cbranch(conditional_bool, then_block, else_block)
+        g_llvm_builder.cbranch(conditional, then_block, else_block)
 
         # Emit then block contents.
         g_llvm_builder.position_at_end(then_block)
@@ -252,7 +246,33 @@ class IfElseThenNode(EmitNode):
 
 class WhileNode(EmitNode):
     def emit(self):
-        return '\n'.join([str(node) for node in self.getChildren()])
+        loop = self.children[1]
+
+        # Create blocks for the if/then cases.
+        function = g_llvm_builder.basic_block.function
+        condition_block = function.append_basic_block('while_condition')
+        loop_block = function.append_basic_block('while_loop')
+        continue_block = function.append_basic_block('continue')
+
+        # Emit unconditional jump into while loop conditional block.
+        g_llvm_builder.branch(condition_block)
+
+        # Check conditional, then either branch into loop or out of loop.
+        g_llvm_builder.position_at_end(condition_block)
+        conditional = self.children[0].emit()
+        g_llvm_builder.cbranch(conditional, loop_block, continue_block)
+
+        # Emit loop block contents.
+        g_llvm_builder.position_at_end(loop_block)
+        loop.emit()
+
+        # Emit unconditional branch back to conditional block so another check
+        # can be performed.
+        g_llvm_builder.branch(condition_block)
+
+        # Place the builder in the continue block so that the rest of the tree
+        # can be generated.
+        g_llvm_builder.position_at_end(continue_block)
 
 
 class ErrorNode(antlr3.tree.CommonErrorNode):

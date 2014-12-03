@@ -16,9 +16,13 @@ from simpleParser import simpleParser
 from llvm.core import Module, Type, Constant, Builder
 
 
-def main():
+def main(file):
     # Get the abstract syntax tree.
-    ast = SimpleParse("input/input2.txt")
+    try:
+        ast = SimpleParse(file)
+    except:
+        print "Supplied file path is invalid!"
+        return 1
 
     # Create main function.
     #
@@ -50,9 +54,9 @@ def main():
     # Exit with return code 0 (RET_SUCCESS).
     nodes.g_llvm_builder.ret(Constant.int(tp_int, 0))
 
-    print g_llvm_module
     ModuleToNativeBinary(g_llvm_module)
 
+    return 0
 
 def SimpleParse(input):
     """
@@ -118,4 +122,9 @@ def ModuleToNativeBinary(module):
         raise Exception("Failed to link with " + str(cmd))
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    if len(sys.argv) != 2:
+        print "Usage: simple.py file\n"
+
+    sys.exit(main(sys.argv[1]))

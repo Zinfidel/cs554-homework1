@@ -1,3 +1,7 @@
+t := 0;
+while t < 10 do
+t := t + 1;
+od;
 
 q0 := 0;
 q1 := 0;
@@ -7,13 +11,13 @@ else
 q1 := 5;
 fi;
 
-if true | false then
+if not false | false then
 q1 := 5;
 else
 skip;
 fi;
 
-if (1 + 2) >= 1 * 1 then
+if (1 + 9) >= q1 then
 skip;
 else
 q0 := 2;
