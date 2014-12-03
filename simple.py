@@ -5,6 +5,7 @@
 """
 import nodes
 from nodes import LlvmAdaptor, tp_int
+import simple_graph
 
 # ANTLR
 import antlr3
@@ -55,6 +56,7 @@ def main(file):
     nodes.g_llvm_builder.ret(Constant.int(tp_int, 0))
 
     ModuleToNativeBinary(g_llvm_module)
+    simple_graph.render_graph(ast)
 
     return 0
 
