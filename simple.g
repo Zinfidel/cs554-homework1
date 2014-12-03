@@ -57,16 +57,16 @@ block
 
 /* Arithmetic expressions - craziness due to precendence! */
 arith_expr
-	:	mult_expr
+	:	add_expr
 	;
-mult_expr
-	:	add_expr (MULT^ add_expr)*
-	;
-add_expr 
+add_expr
 	:	sub_expr (PLUS^ sub_expr)*
 	;
 sub_expr 
-	:	unary_expr (MINUS^ unary_expr)*
+	:	mult_expr (MINUS^ mult_expr)*
+	;
+mult_expr 
+	:	unary_expr (MULT^ unary_expr)*
 	;
 unary_expr
 	:	MINUS arith_atom
@@ -82,12 +82,12 @@ arith_atom
 
 /* Boolean expressions - craziness due to precedence! */
 bool_expr 
-	:	and_expr
+	:	or_expr
 	;
-and_expr 
- 	:	or_expr (AND^ or_expr)*
+or_expr 
+ 	:	and_expr (AND^ and_expr)*
  	;
-or_expr
+and_expr
  	:	bool_atom (OR^ bool_atom)*
  	;
 bool_atom
