@@ -4,19 +4,18 @@
 
 import antlr3
 import antlr3.tree
-from llvm.core import Module, Constant, Type, Value, Function, Builder, FCMP_ULT
+from llvm.core import Module, Constant, Type, Value, ICMPEnum
 
 from simpleLexer import *
 
 # GLOBALS (directly from tutorials)
 g_llvm_builder = None  # Builder created any time a function is entered.
 tp_int = Type.int()
-tp_bool = Type.int(1)
 
 
 class EmitNode(antlr3.tree.CommonTree):
     def __str__(self):
-        return str(self.emit())
+        return self.text
 
     def emit(self):
         print "TYPE " + str(self.type) + " UNIMPLEMENTED"
@@ -46,14 +45,8 @@ class BlockNode(EmitNode):
         self.scope = {}
         """ The local scope for this block. """
 
-        self.closure = []
-        """ :type : list[dict] """
-
-        if self.parent is not None:
-            # Use list() to create a new list rather than updating the parent's.
-            self.closure = list(self.parent.getClosure()).append(self.scope)
-        else:
-            self.closure.append(self.scope)
+        self.closure = None
+        """ The closure of variables for this block. """
 
     def __str__(self):
         return '\n'.join([str(node) for node in self.children])
@@ -63,10 +56,31 @@ class BlockNode(EmitNode):
             child.emit()
             # NOTE: Blocks do not have a return value!
 
+    def initClosure(self):
+        self.closure = []
+        if self.parent is not None:
+            # Use list() to create a new list rather than updating the parent's.
+            self.closure = list(self.parent.getClosure())
+
+        self.closure.append(self.scope)
+
     def getScope(self):
+        """
+        Returns this node's scope.
+        :rtype: dict[str, llvm.core.PointerType]
+        """
         return self.scope
 
     def getClosure(self):
+        """
+        Returns this node's closure. If the closure hasn't been initialized, do
+        so first, then return it. This must be done here rather than in the
+        constructor because parent/children data are not populated until AFTER
+        the nodes have all been created.
+        :rtype: dict[str, llvm.core.PointerType]
+        """
+        if self.closure is None:
+            self.initClosure()
         return self.closure
 
 
@@ -104,7 +118,7 @@ class IdentifierNode(EmitNode):
 
 class UnaryNode(EmitNode):
     def __str__(self):
-        return "".join(self.children)
+        return "".join([str(child) for child in self.children])
 
     def emit(self):
         op = self.children[0]
@@ -121,9 +135,9 @@ class BooleanNode(EmitNode):
 
     def emit(self):
         if self.text.lower() == "true":
-            return Constant.int(tp_bool, 1)
+            return Constant.int(tp_int, 1)
         elif self.text.lower() == "false":
-            return Constant.int(tp_bool, 0)
+            return Constant.int(tp_int, 0)
         else:
             raise RuntimeError("Invalid boolean value.")
 
@@ -182,69 +196,57 @@ class ArithmeticNode(EmitNode):
 
 class RelationalNode(EmitNode):
     def emit(self):
-        children = self.getChildren()
-        left = children[0].emit()
-        right = children[1].emit()
+        left = self.children[0].emit()
+        right = self.children[1].emit()
 
-        if self.getText() == '=':
-            return left + ' = ' + right
-        elif self.getText() == '<':
-            return left + ' < ' + right
-        elif self.getText() == '<=':
-            return left + ' <= ' + right
-        elif self.getText() == '>':
-            return left + ' > ' + right
-        elif self.getText() == '>=':
-            return left + ' >= ' + right
+        if self.text == '=':
+            return g_llvm_builder.icmp(ICMPEnum.ICMP_EQ, left, right, "comp_eq")
+        elif self.text == '<':
+            return g_llvm_builder.icmp(ICMPEnum.ICMP_SLT, left, right, "comp_slt")
+        elif self.text == '<=':
+            return g_llvm_builder.icmp(ICMPEnum.ICMP_SLE, left, right, "comp_sle")
+        elif self.text == '>':
+            return g_llvm_builder.icmp(ICMPEnum.ICMP_SGT, left, right, "comp_sgt")
+        elif self.text == '>=':
+            return g_llvm_builder.icmp(ICMPEnum.ICMP_SGE, left, right, "comp_sge")
         else:
-            raise Exception("Unrecognized relational operator.")
+            raise RuntimeError("Unrecognized relational operator.")
 
 
 class IfElseThenNode(EmitNode):
     def emit(self):
-        temp = ""  # TODO: TEMP VAR FOR STRING RETURN DEBUGGING
-        children = self.getChildren()
-        conditional = children[0]
-        then_branch = children[1]
-        else_branch = children[2]
+        conditional = self.children[0].emit()
+        then_branch = self.children[1]
+        else_branch = self.children[2]
 
         # Convert conditional to a boolean.
-        conditional_bool = "conditional_bool = [" + str(
-            conditional) + " == 0.0]"
-        temp = '\n'.join([temp, conditional_bool])
+        conditional_bool = g_llvm_builder.icmp(ICMPEnum.ICMP_NE,
+                                               conditional,
+                                               Constant.int(tp_int, 0),
+                                               "cond_bool")
 
         # Create blocks for the if/then cases.
-        # TODO: Create branch function
-        then_block = ""
-        else_block = ""
-        merge_block = ""
+        function = g_llvm_builder.basic_block.function
+        then_block = function.append_basic_block('then')
+        else_block = function.append_basic_block('else')
+        continue_block = function.append_basic_block('continue')
 
         # Emit conditional instruction.
-        temp = '\n'.join([temp, "if conditional_bool GOTO THEN else GOTO ELSE"])
+        g_llvm_builder.cbranch(conditional_bool, then_block, else_block)
 
-        # Emit THEN instructions at end of ELSE block.
-        then_block = then_block + then_branch.emit()
-        temp = '\n'.join([temp, then_block])
-        temp = '\n'.join([temp, "GOTO merge block"])
+        # Emit then block contents.
+        g_llvm_builder.position_at_end(then_block)
+        then_branch.emit()
+        g_llvm_builder.branch(continue_block)
 
-        # Emitting then can change block, update then block to the block the
-        # builder is currently in (for the Phi function).
-        # TODO: Set then_block to current block
+        # Emit else block contents.
+        g_llvm_builder.position_at_end(else_block)
+        else_branch.emit()
+        g_llvm_builder.branch(continue_block)
 
-        # Emit ELSE instructions at end of ELSE block.
-        else_block = else_block + else_branch.emit()
-        temp = '\n'.join([temp, else_block])
-        temp = '\n'.join([temp, "GOTO merge block"])
-
-        # Emitting else can change block, update else block to the block the
-        # builder is currently in (for the Phi function).
-        # TODO: Set else_block to current block
-
-        # Emit merge block.
-        # TODO: Create phi node
-
-        # TODO: return phi
-        return temp
+        # Place the builder in the continue block so that the rest of the tree
+        # can be generated.
+        g_llvm_builder.position_at_end(continue_block)
 
 
 class WhileNode(EmitNode):

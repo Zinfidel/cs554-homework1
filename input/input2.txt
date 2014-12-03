@@ -1,3 +1,25 @@
+
+q0 := 0;
+q1 := 0;
+if true then
+q0 := 5;
+else
+q1 := 5;
+fi;
+
+if true | false then
+q1 := 5;
+else
+skip;
+fi;
+
+if (1 + 2) >= 1 * 1 then
+skip;
+else
+q0 := 2;
+q1 := 2;
+fi;
+
 w0 := 1 + 2;
 w1 := 1 + 5 * 2;
 w2 := (1 + 5) * 2;
@@ -12,7 +34,5 @@ y1 := -x0;
 z0 := 5;
 z0 := -z0;
 
-
 skip;
-
 
