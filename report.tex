@@ -1,0 +1,47 @@
+\documentclass[10pt,letterpaper,final,titlepage]{article}
+\usepackage[margin=1in]{geometry}       % 1" margins all-around
+\usepackage[parfill]{parskip}           % Put blank lines between paragraphs instead of indenting
+\usepackage[english]{babel}             % English hypenation
+
+% Encoding packages
+\usepackage[utf8]{inputenc}             % Allow UTF-8 source code
+\usepackage{fourier}                    % Use the Adobe Utopia font
+\usepackage[T1]{fontenc}                % Allow use of T1 (8-bit, 256 glyph) fonts
+
+% Math packages
+\usepackage{amsmath,amsfonts,amssymb}   % Math typesetting
+\usepackage[makeroom]{cancel}
+
+% Source Code packages
+\usepackage{fancyvrb}                   % Fancy verbatim mode with line numbering
+\usepackage{listings}                   % For code
+
+% Image packages
+\usepackage{graphicx}                   % For loading external images.
+\usepackage{epstopdf}                   % Import .EPS files.
+
+% Miscellaneous
+\usepackage{color}                      % Colored text
+\usepackage{enumerate}                  % Different kinds of enumerations.
+
+% Custom Commands
+\newcommand{\mb}[1]{$\mathbf{#1}$}
+
+% Top matter
+\title{CS554: Homework 1}
+\author{Zach Friedland}
+\date{December 01, 2014}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Appendix}
+
+\subsection*{simple.py}
+\lstinputlisting[language=Python, frame=L, numbers=left, col]{simple.py}
+
+
+
+\end{document}
