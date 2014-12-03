@@ -51,6 +51,8 @@ class BlockNode(EmitNode):
         if self.parent is not None:
             # Use list() to create a new list rather than updating the parent's.
             self.closure = list(self.parent.getClosure()).append(self.scope)
+        else:
+            self.closure.append(self.scope)
 
     def __str__(self):
         return '\n'.join([str(node) for node in self.children])
@@ -74,7 +76,7 @@ class SkipNode(EmitNode):
     def emit(self):
         # Emit useless instruction as a no-op.
         zero = Constant.int(tp_int, 0)
-        return g_llvm_builder.add(zero, zero, "addtmp")
+        return g_llvm_builder.add(zero, zero, "noop")
 
 
 class IntegerNode(EmitNode):
