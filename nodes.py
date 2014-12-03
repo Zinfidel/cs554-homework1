@@ -11,6 +11,7 @@ from simpleLexer import *
 # GLOBALS (directly from tutorials)
 g_llvm_builder = None  # Builder created any time a function is entered.
 tp_int = Type.int()
+tp_bool = Type.int(1)
 
 
 class EmitNode(antlr3.tree.CommonTree):
@@ -135,9 +136,9 @@ class BooleanNode(EmitNode):
 
     def emit(self):
         if self.text.lower() == "true":
-            return Constant.int(tp_int, 1)
+            return Constant.int(tp_bool, 1)
         elif self.text.lower() == "false":
-            return Constant.int(tp_int, 0)
+            return Constant.int(tp_bool, 0)
         else:
             raise RuntimeError("Invalid boolean value.")
 
@@ -222,7 +223,7 @@ class IfElseThenNode(EmitNode):
         # Convert conditional to a boolean.
         conditional_bool = g_llvm_builder.icmp(ICMPEnum.ICMP_NE,
                                                conditional,
-                                               Constant.int(tp_int, 0),
+                                               Constant.int(tp_bool, 0),
                                                "cond_bool")
 
         # Create blocks for the if/then cases.
