@@ -94,7 +94,7 @@ bool_atom
  	:	BOOLEAN
 	|	NOT^ bool_atom
 	|	LPAREN! bool_expr RPAREN!
-	|	arith_expr RELOP^ INTEGER
+	|	arith_expr RELOP^ arith_expr
 	;
 
 statement
