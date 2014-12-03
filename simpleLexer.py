@@ -1,54 +1,53 @@
-# $ANTLR 3.5-rc-2 /nfs/student/z/zach/cs554/ANTLRWorks/simple.g 2014-12-03 00:01:25
+# $ANTLR 3.1.3 Mar 18, 2009 10:09:25 simple.g 2014-12-03 00:08:00
 
 import sys
 from antlr3 import *
 from antlr3.compat import set, frozenset
 
 
-
 # for convenience in actions
 HIDDEN = BaseRecognizer.HIDDEN
 
 # token types
-EOF=-1
-AND=4
-BLOCK=5
-BOOLEAN=6
-DO=7
-ELSE=8
-ENDIF=9
-ENDWHILE=10
-GETS=11
-IDENT=12
-IF=13
-INTEGER=14
-LPAREN=15
-MINUS=16
-MULT=17
-NOT=18
-OR=19
-PLUS=20
-RELOP=21
-RPAREN=22
-SEMI=23
-SKIP=24
-THEN=25
-UNARY=26
-WHILE=27
+SEMI=20
+DO=17
+MINUS=6
+MULT=4
+ELSE=13
+SKIP=15
 WS=28
+EOF=-1
+IF=11
+UNARY=24
+INTEGER=27
+OR=9
+ENDIF=14
+LPAREN=21
+BLOCK=23
+RPAREN=22
+BOOLEAN=25
+NOT=7
+IDENT=26
+AND=8
+THEN=12
+WHILE=16
+ENDWHILE=18
+GETS=19
+RELOP=10
+PLUS=5
 
 
 class simpleLexer(Lexer):
 
-    grammarFileName = "/nfs/student/z/zach/cs554/ANTLRWorks/simple.g"
-    api_version = 1
+    grammarFileName = "simple.g"
+    antlr_version = version_str_to_tuple("3.1.3 Mar 18, 2009 10:09:25")
+    antlr_version_str = "3.1.3 Mar 18, 2009 10:09:25"
 
     def __init__(self, input=None, state=None):
         if state is None:
             state = RecognizerSharedState()
         super(simpleLexer, self).__init__(input, state)
 
-        self.delegates = []
 
         self.dfa6 = self.DFA6(
             self, 6,
@@ -68,12 +67,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "MULT"
     def mMULT(self, ):
+
         try:
             _type = MULT
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:10:6: ( '*' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:10:8: '*'
+            # simple.g:10:6: ( '*' )
+            # simple.g:10:8: '*'
             pass 
             self.match(42)
 
@@ -81,7 +81,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "MULT"
@@ -90,12 +92,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "PLUS"
     def mPLUS(self, ):
+
         try:
             _type = PLUS
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:11:6: ( '+' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:11:8: '+'
+            # simple.g:11:6: ( '+' )
+            # simple.g:11:8: '+'
             pass 
             self.match(43)
 
@@ -103,7 +106,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "PLUS"
@@ -112,12 +117,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "MINUS"
     def mMINUS(self, ):
+
         try:
             _type = MINUS
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:12:7: ( '-' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:12:9: '-'
+            # simple.g:12:7: ( '-' )
+            # simple.g:12:9: '-'
             pass 
             self.match(45)
 
@@ -125,7 +131,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "MINUS"
@@ -134,21 +142,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "NOT"
     def mNOT(self, ):
+
         try:
             _type = NOT
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:15:6: ( 'not' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:15:8: 'not'
+            # simple.g:15:6: ( 'not' )
+            # simple.g:15:8: 'not'
             pass 
             self.match("not")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "NOT"
@@ -157,12 +167,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "AND"
     def mAND(self, ):
+
         try:
             _type = AND
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:16:5: ( '&' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:16:7: '&'
+            # simple.g:16:5: ( '&' )
+            # simple.g:16:7: '&'
             pass 
             self.match(38)
 
@@ -170,7 +181,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "AND"
@@ -179,12 +192,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "OR"
     def mOR(self, ):
+
         try:
             _type = OR
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:17:4: ( '|' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:17:6: '|'
+            # simple.g:17:4: ( '|' )
+            # simple.g:17:6: '|'
             pass 
             self.match(124)
 
@@ -192,7 +206,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "OR"
@@ -201,14 +217,15 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "RELOP"
     def mRELOP(self, ):
+
         try:
             _type = RELOP
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:7: ( ( '=' | '<' | '<=' | '>' | '>=' ) )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:9: ( '=' | '<' | '<=' | '>' | '>=' )
+            # simple.g:18:7: ( ( '=' | '<' | '<=' | '>' | '>=' ) )
+            # simple.g:18:9: ( '=' | '<' | '<=' | '>' | '>=' )
             pass 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:9: ( '=' | '<' | '<=' | '>' | '>=' )
+            # simple.g:18:9: ( '=' | '<' | '<=' | '>' | '>=' )
             alt1 = 5
             LA1 = self.input.LA(1)
             if LA1 == 61:
@@ -220,7 +237,6 @@ class simpleLexer(Lexer):
                     alt1 = 3
                 else:
                     alt1 = 2
-
             elif LA1 == 62:
                 LA1_3 = self.input.LA(2)
 
@@ -228,40 +244,37 @@ class simpleLexer(Lexer):
                     alt1 = 5
                 else:
                     alt1 = 4
-
             else:
                 nvae = NoViableAltException("", 1, 0, self.input)
 
                 raise nvae
 
-
             if alt1 == 1:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:10: '='
+                # simple.g:18:10: '='
                 pass 
                 self.match(61)
 
 
             elif alt1 == 2:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:16: '<'
+                # simple.g:18:16: '<'
                 pass 
                 self.match(60)
 
 
             elif alt1 == 3:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:22: '<='
+                # simple.g:18:22: '<='
                 pass 
                 self.match("<=")
 
 
-
             elif alt1 == 4:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:29: '>'
+                # simple.g:18:29: '>'
                 pass 
                 self.match(62)
 
 
             elif alt1 == 5:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:18:35: '>='
+                # simple.g:18:35: '>='
                 pass 
                 self.match(">=")
 
@@ -270,10 +283,11 @@ class simpleLexer(Lexer):
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "RELOP"
@@ -282,21 +296,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "IF"
     def mIF(self, ):
+
         try:
             _type = IF
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:21:4: ( 'if' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:21:6: 'if'
+            # simple.g:21:4: ( 'if' )
+            # simple.g:21:6: 'if'
             pass 
             self.match("if")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "IF"
@@ -305,21 +321,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "THEN"
     def mTHEN(self, ):
+
         try:
             _type = THEN
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:22:6: ( 'then' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:22:8: 'then'
+            # simple.g:22:6: ( 'then' )
+            # simple.g:22:8: 'then'
             pass 
             self.match("then")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "THEN"
@@ -328,21 +346,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "ELSE"
     def mELSE(self, ):
+
         try:
             _type = ELSE
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:23:6: ( 'else' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:23:8: 'else'
+            # simple.g:23:6: ( 'else' )
+            # simple.g:23:8: 'else'
             pass 
             self.match("else")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "ELSE"
@@ -351,21 +371,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "ENDIF"
     def mENDIF(self, ):
+
         try:
             _type = ENDIF
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:24:7: ( 'fi' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:24:9: 'fi'
+            # simple.g:24:7: ( 'fi' )
+            # simple.g:24:9: 'fi'
             pass 
             self.match("fi")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "ENDIF"
@@ -374,21 +396,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "SKIP"
     def mSKIP(self, ):
+
         try:
             _type = SKIP
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:25:6: ( 'skip' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:25:8: 'skip'
+            # simple.g:25:6: ( 'skip' )
+            # simple.g:25:8: 'skip'
             pass 
             self.match("skip")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "SKIP"
@@ -397,21 +421,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "WHILE"
     def mWHILE(self, ):
+
         try:
             _type = WHILE
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:28:7: ( 'while' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:28:9: 'while'
+            # simple.g:28:7: ( 'while' )
+            # simple.g:28:9: 'while'
             pass 
             self.match("while")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "WHILE"
@@ -420,21 +446,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "DO"
     def mDO(self, ):
+
         try:
             _type = DO
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:29:4: ( 'do' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:29:6: 'do'
+            # simple.g:29:4: ( 'do' )
+            # simple.g:29:6: 'do'
             pass 
             self.match("do")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "DO"
@@ -443,21 +471,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "ENDWHILE"
     def mENDWHILE(self, ):
+
         try:
             _type = ENDWHILE
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:30:10: ( 'od' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:30:12: 'od'
+            # simple.g:30:10: ( 'od' )
+            # simple.g:30:12: 'od'
             pass 
             self.match("od")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "ENDWHILE"
@@ -466,21 +496,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "GETS"
     def mGETS(self, ):
+
         try:
             _type = GETS
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:33:6: ( ':=' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:33:8: ':='
+            # simple.g:33:6: ( ':=' )
+            # simple.g:33:8: ':='
             pass 
             self.match(":=")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "GETS"
@@ -489,12 +521,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "SEMI"
     def mSEMI(self, ):
+
         try:
             _type = SEMI
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:34:6: ( ';' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:34:8: ';'
+            # simple.g:34:6: ( ';' )
+            # simple.g:34:8: ';'
             pass 
             self.match(59)
 
@@ -502,7 +535,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "SEMI"
@@ -511,12 +546,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "LPAREN"
     def mLPAREN(self, ):
+
         try:
             _type = LPAREN
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:35:8: ( '(' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:35:10: '('
+            # simple.g:35:8: ( '(' )
+            # simple.g:35:10: '('
             pass 
             self.match(40)
 
@@ -524,7 +560,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "LPAREN"
@@ -533,12 +571,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "RPAREN"
     def mRPAREN(self, ):
+
         try:
             _type = RPAREN
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:36:8: ( ')' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:36:10: ')'
+            # simple.g:36:8: ( ')' )
+            # simple.g:36:10: ')'
             pass 
             self.match(41)
 
@@ -546,7 +585,9 @@ class simpleLexer(Lexer):
 
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "RPAREN"
@@ -555,21 +596,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "BLOCK"
     def mBLOCK(self, ):
+
         try:
             _type = BLOCK
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:37:7: ( 'block' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:37:9: 'block'
+            # simple.g:37:7: ( 'block' )
+            # simple.g:37:9: 'block'
             pass 
             self.match("block")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "BLOCK"
@@ -578,21 +621,23 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "UNARY"
     def mUNARY(self, ):
+
         try:
             _type = UNARY
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:38:7: ( 'unary' )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:38:9: 'unary'
+            # simple.g:38:7: ( 'unary' )
+            # simple.g:38:9: 'unary'
             pass 
             self.match("unary")
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "UNARY"
@@ -601,14 +646,15 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "BOOLEAN"
     def mBOOLEAN(self, ):
+
         try:
             _type = BOOLEAN
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:41:9: ( ( 'true' | 'false' ) )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:41:11: ( 'true' | 'false' )
+            # simple.g:41:9: ( ( 'true' | 'false' ) )
+            # simple.g:41:11: ( 'true' | 'false' )
             pass 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:41:11: ( 'true' | 'false' )
+            # simple.g:41:11: ( 'true' | 'false' )
             alt2 = 2
             LA2_0 = self.input.LA(1)
 
@@ -621,16 +667,14 @@ class simpleLexer(Lexer):
 
                 raise nvae
 
-
             if alt2 == 1:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:41:12: 'true'
+                # simple.g:41:12: 'true'
                 pass 
                 self.match("true")
 
 
-
             elif alt2 == 2:
-                # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:41:21: 'false'
+                # simple.g:41:21: 'false'
                 pass 
                 self.match("false")
 
@@ -639,10 +683,11 @@ class simpleLexer(Lexer):
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "BOOLEAN"
@@ -651,12 +696,13 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "IDENT"
     def mIDENT(self, ):
+
         try:
             _type = IDENT
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:42:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:42:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+            # simple.g:42:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
+            # simple.g:42:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
             pass 
             if (65 <= self.input.LA(1) <= 90) or (97 <= self.input.LA(1) <= 122):
                 self.input.consume()
@@ -665,9 +711,7 @@ class simpleLexer(Lexer):
                 self.recover(mse)
                 raise mse
 
-
-
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:42:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+            # simple.g:42:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
             while True: #loop3
                 alt3 = 2
                 LA3_0 = self.input.LA(1)
@@ -677,7 +721,7 @@ class simpleLexer(Lexer):
 
 
                 if alt3 == 1:
-                    # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:
+                    # simple.g:
                     pass 
                     if (48 <= self.input.LA(1) <= 57) or (65 <= self.input.LA(1) <= 90) or (97 <= self.input.LA(1) <= 122):
                         self.input.consume()
@@ -688,16 +732,16 @@ class simpleLexer(Lexer):
 
 
 
-
                 else:
                     break #loop3
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "IDENT"
@@ -706,14 +750,15 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "INTEGER"
     def mINTEGER(self, ):
+
         try:
             _type = INTEGER
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:43:9: ( ( '0' .. '9' )+ )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:43:11: ( '0' .. '9' )+
+            # simple.g:43:9: ( ( '0' .. '9' )+ )
+            # simple.g:43:11: ( '0' .. '9' )+
             pass 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:43:11: ( '0' .. '9' )+
+            # simple.g:43:11: ( '0' .. '9' )+
             cnt4 = 0
             while True: #loop4
                 alt4 = 2
@@ -724,16 +769,9 @@ class simpleLexer(Lexer):
 
 
                 if alt4 == 1:
-                    # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:
+                    # simple.g:43:12: '0' .. '9'
                     pass 
-                    if (48 <= self.input.LA(1) <= 57):
-                        self.input.consume()
-                    else:
-                        mse = MismatchedSetException(None, self.input)
-                        self.recover(mse)
-                        raise mse
-
-
+                    self.matchRange(48, 57)
 
 
                 else:
@@ -747,10 +785,11 @@ class simpleLexer(Lexer):
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "INTEGER"
@@ -759,14 +798,15 @@ class simpleLexer(Lexer):
 
     # $ANTLR start "WS"
     def mWS(self, ):
+
         try:
             _type = WS
             _channel = DEFAULT_CHANNEL
 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:46:4: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            # simple.g:46:4: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
+            # simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             pass 
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            # simple.g:46:6: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             cnt5 = 0
             while True: #loop5
                 alt5 = 2
@@ -777,7 +817,7 @@ class simpleLexer(Lexer):
 
 
                 if alt5 == 1:
-                    # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:
+                    # simple.g:
                     pass 
                     if (9 <= self.input.LA(1) <= 10) or (12 <= self.input.LA(1) <= 13) or self.input.LA(1) == 32:
                         self.input.consume()
@@ -785,7 +825,6 @@ class simpleLexer(Lexer):
                         mse = MismatchedSetException(None, self.input)
                         self.recover(mse)
                         raise mse
-
 
 
 
@@ -797,18 +836,17 @@ class simpleLexer(Lexer):
                     raise eee
 
                 cnt5 += 1
-
-
             #action start
             _channel = HIDDEN;
             #action end
 
 
 
-
             self._state.type = _type
             self._state.channel = _channel
+
         finally:
+
             pass
 
     # $ANTLR end "WS"
@@ -816,182 +854,157 @@ class simpleLexer(Lexer):
 
 
     def mTokens(self):
-        # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:8: ( MULT | PLUS | MINUS | NOT | AND | OR | RELOP | IF | THEN | ELSE | ENDIF | SKIP | WHILE | DO | ENDWHILE | GETS | SEMI | LPAREN | RPAREN | BLOCK | UNARY | BOOLEAN | IDENT | INTEGER | WS )
+        # simple.g:1:8: ( MULT | PLUS | MINUS | NOT | AND | OR | RELOP | IF | THEN | ELSE | ENDIF | SKIP | WHILE | DO | ENDWHILE | GETS | SEMI | LPAREN | RPAREN | BLOCK | UNARY | BOOLEAN | IDENT | INTEGER | WS )
         alt6 = 25
         alt6 = self.dfa6.predict(self.input)
         if alt6 == 1:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:10: MULT
+            # simple.g:1:10: MULT
             pass 
             self.mMULT()
 
 
-
         elif alt6 == 2:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:15: PLUS
+            # simple.g:1:15: PLUS
             pass 
             self.mPLUS()
 
 
-
         elif alt6 == 3:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:20: MINUS
+            # simple.g:1:20: MINUS
             pass 
             self.mMINUS()
 
 
-
         elif alt6 == 4:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:26: NOT
+            # simple.g:1:26: NOT
             pass 
             self.mNOT()
 
 
-
         elif alt6 == 5:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:30: AND
+            # simple.g:1:30: AND
             pass 
             self.mAND()
 
 
-
         elif alt6 == 6:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:34: OR
+            # simple.g:1:34: OR
             pass 
             self.mOR()
 
 
-
         elif alt6 == 7:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:37: RELOP
+            # simple.g:1:37: RELOP
             pass 
             self.mRELOP()
 
 
-
         elif alt6 == 8:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:43: IF
+            # simple.g:1:43: IF
             pass 
             self.mIF()
 
 
-
         elif alt6 == 9:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:46: THEN
+            # simple.g:1:46: THEN
             pass 
             self.mTHEN()
 
 
-
         elif alt6 == 10:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:51: ELSE
+            # simple.g:1:51: ELSE
             pass 
             self.mELSE()
 
 
-
         elif alt6 == 11:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:56: ENDIF
+            # simple.g:1:56: ENDIF
             pass 
             self.mENDIF()
 
 
-
         elif alt6 == 12:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:62: SKIP
+            # simple.g:1:62: SKIP
             pass 
             self.mSKIP()
 
 
-
         elif alt6 == 13:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:67: WHILE
+            # simple.g:1:67: WHILE
             pass 
             self.mWHILE()
 
 
-
         elif alt6 == 14:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:73: DO
+            # simple.g:1:73: DO
             pass 
             self.mDO()
 
 
-
         elif alt6 == 15:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:76: ENDWHILE
+            # simple.g:1:76: ENDWHILE
             pass 
             self.mENDWHILE()
 
 
-
         elif alt6 == 16:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:85: GETS
+            # simple.g:1:85: GETS
             pass 
             self.mGETS()
 
 
-
         elif alt6 == 17:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:90: SEMI
+            # simple.g:1:90: SEMI
             pass 
             self.mSEMI()
 
 
-
         elif alt6 == 18:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:95: LPAREN
+            # simple.g:1:95: LPAREN
             pass 
             self.mLPAREN()
 
 
-
         elif alt6 == 19:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:102: RPAREN
+            # simple.g:1:102: RPAREN
             pass 
             self.mRPAREN()
 
 
-
         elif alt6 == 20:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:109: BLOCK
+            # simple.g:1:109: BLOCK
             pass 
             self.mBLOCK()
 
 
-
         elif alt6 == 21:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:115: UNARY
+            # simple.g:1:115: UNARY
             pass 
             self.mUNARY()
 
 
-
         elif alt6 == 22:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:121: BOOLEAN
+            # simple.g:1:121: BOOLEAN
             pass 
             self.mBOOLEAN()
 
 
-
         elif alt6 == 23:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:129: IDENT
+            # simple.g:1:129: IDENT
             pass 
             self.mIDENT()
 
 
-
         elif alt6 == 24:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:135: INTEGER
+            # simple.g:1:135: INTEGER
             pass 
             self.mINTEGER()
 
 
-
         elif alt6 == 25:
-            # /nfs/student/z/zach/cs554/ANTLRWorks/simple.g:1:143: WS
+            # simple.g:1:143: WS
             pass 
             self.mWS()
-
 
 
 
@@ -1040,7 +1053,7 @@ class simpleLexer(Lexer):
         u"\107\uffff"
         )
 
-
+            
     DFA6_transition = [
         DFA.unpack(u"\2\30\1\uffff\2\30\22\uffff\1\30\5\uffff\1\5\1\uffff"
         u"\1\22\1\23\1\1\1\2\1\uffff\1\3\2\uffff\12\27\1\20\1\21\3\7\2\uffff"
@@ -1131,12 +1144,10 @@ class simpleLexer(Lexer):
 def main(argv, stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr):
     from antlr3.main import LexerMain
     main = LexerMain(simpleLexer)
-
     main.stdin = stdin
     main.stdout = stdout
     main.stderr = stderr
     main.execute(argv)
-
 
 
 if __name__ == '__main__':
