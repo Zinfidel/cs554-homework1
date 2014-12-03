@@ -1,4 +1,4 @@
-# $ANTLR 3.1.3 Mar 18, 2009 10:09:25 simple.g 2014-12-03 00:08:00
+# $ANTLR 3.1.3 Mar 18, 2009 10:09:25 simple.g 2014-12-03 02:38:12
 
 import sys
 from antlr3 import *
@@ -1106,7 +1106,7 @@ class simpleParser(Parser):
 
 
     # $ANTLR start "bool_atom"
-    # simple.g:93:1: bool_atom : ( BOOLEAN | NOT bool_atom | LPAREN bool_expr RPAREN | arith_expr RELOP INTEGER );
+    # simple.g:93:1: bool_atom : ( BOOLEAN | NOT bool_atom | LPAREN bool_expr RPAREN | arith_expr RELOP arith_expr );
     def bool_atom(self, ):
 
         retval = self.bool_atom_return()
@@ -1119,12 +1119,13 @@ class simpleParser(Parser):
         LPAREN32 = None
         RPAREN34 = None
         RELOP36 = None
-        INTEGER37 = None
         bool_atom31 = None
 
         bool_expr33 = None
 
         arith_expr35 = None
+
+        arith_expr37 = None
 
 
         BOOLEAN29_tree = None
@@ -1132,11 +1133,10 @@ class simpleParser(Parser):
         LPAREN32_tree = None
         RPAREN34_tree = None
         RELOP36_tree = None
-        INTEGER37_tree = None
 
         try:
             try:
-                # simple.g:94:3: ( BOOLEAN | NOT bool_atom | LPAREN bool_expr RPAREN | arith_expr RELOP INTEGER )
+                # simple.g:94:3: ( BOOLEAN | NOT bool_atom | LPAREN bool_expr RPAREN | arith_expr RELOP arith_expr )
                 alt9 = 4
                 LA9 = self.input.LA(1)
                 if LA9 == BOOLEAN:
@@ -1216,7 +1216,7 @@ class simpleParser(Parser):
 
 
                 elif alt9 == 4:
-                    # simple.g:97:4: arith_expr RELOP INTEGER
+                    # simple.g:97:4: arith_expr RELOP arith_expr
                     pass 
                     root_0 = self._adaptor.nil()
 
@@ -1232,12 +1232,12 @@ class simpleParser(Parser):
                         RELOP36_tree = self._adaptor.createWithPayload(RELOP36)
                         root_0 = self._adaptor.becomeRoot(RELOP36_tree, root_0)
 
-                    INTEGER37=self.match(self.input, INTEGER, self.FOLLOW_INTEGER_in_bool_atom579)
+                    self._state.following.append(self.FOLLOW_arith_expr_in_bool_atom579)
+                    arith_expr37 = self.arith_expr()
+
+                    self._state.following.pop()
                     if self._state.backtracking == 0:
-
-                        INTEGER37_tree = self._adaptor.createWithPayload(INTEGER37)
-                        self._adaptor.addChild(root_0, INTEGER37_tree)
-
+                        self._adaptor.addChild(root_0, arith_expr37.tree)
 
 
                 retval.stop = self.input.LT(-1)
@@ -1534,8 +1534,8 @@ class simpleParser(Parser):
     FOLLOW_bool_expr_in_bool_atom566 = frozenset([22])
     FOLLOW_RPAREN_in_bool_atom568 = frozenset([1])
     FOLLOW_arith_expr_in_bool_atom574 = frozenset([10])
-    FOLLOW_RELOP_in_bool_atom576 = frozenset([27])
-    FOLLOW_INTEGER_in_bool_atom579 = frozenset([1])
+    FOLLOW_RELOP_in_bool_atom576 = frozenset([5, 6, 21, 26, 27])
+    FOLLOW_arith_expr_in_bool_atom579 = frozenset([1])
     FOLLOW_IDENT_in_statement595 = frozenset([19])
     FOLLOW_GETS_in_statement597 = frozenset([5, 6, 21, 26, 27])
     FOLLOW_arith_expr_in_statement600 = frozenset([20])
